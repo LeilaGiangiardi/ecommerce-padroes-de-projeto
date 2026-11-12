@@ -1,26 +1,27 @@
 # 🛒 E-Commerce CLI — Arquitetura de Software
 
-Projeto acadêmico desenvolvido em **Java puro** (sem frameworks externos e com interface via linha de comando) com o objetivo de demonstrar a aplicação prática da arquitetura **MVC** combinada com **15 Padrões de Projeto (Design Patterns)** em um cenário de loja virtual.
+Projeto acadêmico desenvolvido em **Java puro** (sem frameworks externos e com interface via linha de comando) com o objetivo de demonstrar a aplicação prática da arquitetura **MVC** combinada com **16 Padrões de Projeto (Design Patterns)** em um cenário de loja virtual de livros.
 
 ## 🏗️ Padrões Implementados
 
 | # | Padrão | Categoria | Aplicação no Projeto |
 | :--- | :--- | :--- | :--- |
-| **01** | **MVC** | Arquitetura | Separação entre regras de negócio (`Model`), entrada/saída no terminal (`View`) e fluxo (`Controller`). |
-| **02** | **DAO** | Persistência | Abstração das operações de busca e salvamento de produtos e pedidos em memória. |
-| **03** | **VO** | Transferência | Objetos enxutos (`ProdutoVO`, `CarrinhoVO`) para trafegar dados entre camadas sem expor regras. |
-| **04** | **Singleton** | Criacional | Garante uma única instância do `BancoDeMemoria` durante toda a execução do programa. |
-| **05** | **Abstract Factory** | Criacional | Criação de diferentes famílias de produtos: **Físicos** (com frete) e **Digitais** (com link de download). |
-| **06** | **Facade** | Estrutural | A classe `CheckoutFacade` unifica validação de estoque, pagamento e recibo em uma única chamada. |
-| **07** | **Adapter** | Estrutural | Adapta a interface de um serviço externo de pagamento (ex: PayPal) ao padrão esperado pela loja. |
-| **08** | **Decorator** | Estrutural | Adiciona opções extras dinamicamente ao item do carrinho (ex: Embalagem de Presente, Garantia). |
-| **09** | **Command** | Comportamental | Transforma cada opção do menu do terminal em uma classe de comando isolada. |
-| **10** | **Observer** | Comportamental | Dispara notificações automáticas (Nota Fiscal e E-mail) assim que o pagamento é confirmado. |
-| **11** | **Chain of Responsibility** | Comportamental | Cadeia de regras para calcular descontos progressivos (Cupom, Cliente VIP, Valor Mínimo). |
-| **12** | **Template Method** | Comportamental | Define o passo a passo fixo de processamento do pedido, variando apenas a etapa de entrega. |
-| **13** | **Memento** | Comportamental | Permite salvar o estado do carrinho e desfazer alterações (`Ctrl + Z`). |
-| **14** | **Iterator** | Comportamental | Percorre os itens do catálogo e do carrinho de forma padronizada sem expor a estrutura interna. |
-| **15** | **Lazy Loading** | Performance | Carrega detalhes pesados (descrição completa e avaliações) apenas quando o usuário solicita. |
+| **01** | **MVC** | Arquitetura | Estruturação de pastas separando regras (`Model`), terminal (`View`) e orquestração (`Controller`). |
+| **02** | **DAO** | Arquitetural | Isola a lógica de buscar/salvar itens no nosso banco de memória falso (`ProdutoDAO`). |
+| **03** | **VO (DTO)** | Arquitetural | Envelopes burros (`ProdutoVO`, `CarrinhoVO`) que trafegam dados do banco para a tela sem expor regras. |
+| **04** | **Singleton** | Criacional | Trava a classe `BancoDeMemoria` para garantir que o sistema inteiro use o mesmo estoque. |
+| **05** | **Abstract Factory** | Criacional | A `ProdutoFactory` constrói o tipo correto de objeto (`ProdutoFisico` ou `ProdutoDigital`) com base nos dados. |
+| **06** | **Lazy Loading** | Performance | Atrasa o carregamento da descrição completa e das "reviews" do produto até que o cliente peça para ler. |
+| **07** | **Iterator** | Comportamental | Motor que percorre e imprime o catálogo e o carrinho na tela (`System.out`) sem expor a lista real (`ArrayList`). |
+| **08** | **Command** | Comportamental | Transforma cada opção do terminal (1 - Listar, 2 - Comprar, 3 - Sair) em uma classe de ação independente. |
+| **09** | **Decorator** | Estrutural | Adiciona comportamentos extras ao produto dinamicamente (ex: `EmbalagemPresenteDecorator` que soma R$ 15). |
+| **10** | **Memento** | Comportamental | Tira um *snapshot* do estado do carrinho quando o usuário sai (Carrinho Abandonado) e restaura na volta. |
+| **11** | **Facade** | Estrutural | A `CheckoutFacade` centraliza o processo de "Finalizar Compra" (estoque + pagar + recibo) em uma única chamada. |
+| **12** | **Chain of Responsibility** | Comportamental | Cascata de verificação de descontos: Tenta aplicar Cupom -> Se não, tenta VIP -> Se não, tenta Frete Grátis. |
+| **13** | **Strategy** | Comportamental | Permite plugar diferentes algoritmos de pagamento na hora de fechar o pedido (`PagamentoPix`, `PagamentoCartao`). |
+| **14** | **Adapter** | Estrutural | A estratégia `PagamentoCartao` usa o Adapter para traduzir nossa interface para a interface do sistema externo "PayPal". |
+| **15** | **Template Method** | Comportamental | Define a ordem fixa de processar o pedido: Baixar Estoque -> Cobrar -> Entregar (Variando apenas a forma de entrega). |
+| **16** | **Observer** | Comportamental | O módulo de pagamento notifica (`notify`) os ouvintes (`NotaFiscal` e `DisparadorDeEmail`) assim que a compra é aprovada. |
 
 ## 📂 Estrutura de Pacotes
 
