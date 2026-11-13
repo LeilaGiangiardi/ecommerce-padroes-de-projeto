@@ -1,4 +1,4 @@
-package scr.ecommerce.model.vo;
+package src.ecommerce.model.vo;
 
 //Padrão: VO (Value Object): Um objeto simples sem regras de negocio
 //O DAO  preenchem esse VO e mandam para a View.
