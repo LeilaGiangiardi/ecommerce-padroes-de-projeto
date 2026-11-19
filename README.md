@@ -13,15 +13,15 @@ Projeto acadêmico desenvolvido em **Java puro** (sem frameworks externos e com 
 | **05** | **Abstract Factory** | Criacional | A `ProdutoFactory` constrói o tipo correto de objeto (`ProdutoFisico` ou `ProdutoDigital`) com base nos dados. |
 | **06** | **Lazy Loading** | Performance | Atrasa o carregamento da descrição completa e das "reviews" do produto até que o cliente peça para ler. |
 | **07** | **Iterator** | Comportamental | Motor que percorre e imprime o catálogo e o carrinho na tela (`System.out`) sem expor a lista real (`ArrayList`). |
-| **08** | **Command** | Comportamental | Transforma cada opção do terminal (1 - Listar, 2 - Comprar, 3 - Sair) em uma classe de ação independente. |
-| **09** | **Decorator** | Estrutural | Adiciona comportamentos extras ao produto dinamicamente (ex: `EmbalagemPresenteDecorator` que soma R$ 15). |
+| **08** | **Command** | Comportamental | Transforma cada opção do terminal (Listar, Adicionar, Ver Carrinho, Abandonar, Restaurar, Finalizar) em uma classe de ação independente. |
+| **09** | **Decorator** | Estrutural | Adiciona comportamentos extras ao produto dinamicamente (`MarcadorPaginaDecorator`, que soma R$ 5 e valida que o livro não é digital). |
 | **10** | **Memento** | Comportamental | Tira um *snapshot* do estado do carrinho quando o usuário sai (Carrinho Abandonado) e restaura na volta. |
-| **11** | **Facade** | Estrutural | A `CheckoutFacade` centraliza o processo de "Finalizar Compra" (estoque + pagar + recibo) em uma única chamada. |
-| **12** | **Chain of Responsibility** | Comportamental | Cascata de verificação de descontos: Tenta aplicar Cupom -> Se não, tenta VIP -> Se não, tenta Frete Grátis. |
+| **11** | **Facade** | Estrutural | A `CheckoutFacade` centraliza o processo de "Finalizar Compra" (descontos + estoque + pagamento + entrega + notificações) em uma única chamada. |
+| **12** | **Chain of Responsibility** | Comportamental | Cascata de verificação de descontos: tenta aplicar Cupom (`LIVRO10`) -> se não, tenta Frete Grátis (compras a partir de R$ 100). |
 | **13** | **Strategy** | Comportamental | Permite plugar diferentes algoritmos de pagamento na hora de fechar o pedido (`PagamentoPix`, `PagamentoCartao`). |
-| **14** | **Adapter** | Estrutural | A estratégia `PagamentoCartao` usa o Adapter para traduzir nossa interface para a interface do sistema externo "PayPal". |
-| **15** | **Template Method** | Comportamental | Define a ordem fixa de processar o pedido: Baixar Estoque -> Cobrar -> Entregar (Variando apenas a forma de entrega). |
-| **16** | **Observer** | Comportamental | O módulo de pagamento notifica (`notify`) os ouvintes (`NotaFiscal` e `DisparadorDeEmail`) assim que a compra é aprovada. |
+| **14** | **Adapter** | Estrutural | A estratégia `PagamentoCartao` usa o `MercadoPagoAdapter` para traduzir nossa interface para a interface do sistema externo `MercadoPagoAPI`. |
+| **15** | **Template Method** | Comportamental | Define a ordem fixa de processar o pedido: Baixar Estoque -> Cobrar -> Entregar (variando apenas a entrega física ou digital). |
+| **16** | **Observer** | Comportamental | O checkout notifica os ouvintes (`NotaFiscalObserver` e `DisparadorDeEmailObserver`) assim que a compra é aprovada. |
 
 ## 📂 Estrutura de Pacotes
 
@@ -31,5 +31,5 @@ src/
     ├── Main.java                 # Ponto de entrada da aplicação
     ├── model/                    # Entidades, regras de negócio, VO e DAO
     ├── view/                     # Interface de console (Scanner e System.out)
-    ├── controller/               # Controladores e Commands do menu
-    └── patterns/                 # Implementações isoladas dos padrões GOF
+    ├── controller/               # Controlador (MVC/Caretaker) e Commands do menu
+    └── patterns/                 # Implementações isoladas dos padrões GoF
