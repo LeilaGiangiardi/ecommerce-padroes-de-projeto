@@ -7,7 +7,7 @@ package src.ecommerce.patterns.chain;
 public class DescontoFreteGratis extends DescontoHandler {
 
     @Override
-    public double aplicarDesconto(double valorTotal, String cupom, boolean ehVip) {
+    public double aplicarDesconto(double valorTotal, String cupom) {
         if (valorTotal >= 100.00) {
             System.out.println("[Chain] Compra acima de R$ 100! Abatimento de Frete Grátis (-R$ 15,00)!");
             return valorTotal - 15.00;
